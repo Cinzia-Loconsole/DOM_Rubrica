@@ -1,0 +1,45 @@
+
+@font-face {
+    font-family:gelfont ;
+    src: url(./GelPenUprightLight.ttf);
+  } 
+
+:root{
+    --pink: #EED1D3;
+    --green: #01633083;
+    --blacklight: #111111bb;
+}
+
+body{
+    background-color: var(--pink);
+    color: var (--blacklight);
+    font-family:gelfont ;
+}
+
+h1{
+    color: var (--blacklight);
+    display: flex;
+    justify-content: center;
+    font-size: 60px;
+    
+}
+
+.btn-custom{
+    border: 2px var(--blacklight) solid;
+    background-color: var(--green);
+}
+
+.btn-custom:hover{
+
+    border: 2px var(--blacklight) solid;
+    background-color: rgba(156, 232, 42, 0.856);
+}
+
+.card-custom{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    height: 100px;
+    border: 2px solid var(--green);
+    border-radius: 20px;
+}
