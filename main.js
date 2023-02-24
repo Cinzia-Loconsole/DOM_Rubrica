@@ -2,6 +2,15 @@ let cardsWrapper = document.querySelector('#cardsWrapper');
 
 let mostraRubrica = document.querySelector('#mostraRubrica');
 
+let aggiungiContatto = document.querySelector('#addcont');
+
+let rimuoviContatto = document.querySelector('#remcont');
+
+let nameInput = document.querySelector('#nameInput');
+
+let numberInput = document.querySelector('#numberInput');
+
+
 let check = false;
 
 let rubrica = {
@@ -38,6 +47,18 @@ showContacts : function (){
     })
 
   
+    },
+
+    addContact : function (newName, newNumber){
+
+        this.contatti.push ({nome: newName , numero: newNumber});
+
+        rubrica.showContacts();
+
+        nameInput.value = '';
+
+        numberInput.value = '';
+
     }
     
 
@@ -67,5 +88,29 @@ mostraRubrica.addEventListener('click',()=>{
 })
 
 
-// rubrica.showContact();
-// console.log(rubrica.showContact());
+
+aggiungiContatto.addEventListener('click', ()=>{
+
+    if(nameInput.value != '' && numberInput.value != ''){
+        
+        check = true;
+        
+        rubrica.addContact (nameInput.value , numberInput.value);
+
+        rubrica.showContacts();
+
+        mostraRubrica.innerHTML = "Nascondi Rubrica";
+
+     } else {
+        
+        check = false;
+
+        alert('Attenzione, inserisci correttamente i campi');
+
+        mostraRubrica.innerHTML = 'Mostra Rubrica';
+
+        
+
+     }
+
+ })
