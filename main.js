@@ -6,6 +6,8 @@ let aggiungiContatto = document.querySelector('#addcont');
 
 let rimuoviContatto = document.querySelector('#remcont');
 
+let cercaContatto = document.querySelector('#cercacont');
+
 let nameInput = document.querySelector('#nameInput');
 
 let numberInput = document.querySelector('#numberInput');
@@ -16,16 +18,18 @@ let check = false;
 let rubrica = {
     contatti:
     [
-        { nome : 'Cinzia' , numero: 12345678},
-        { nome : 'Carmine', numero: 33399900},
-        { nome: 'Adriano', numero: 89181928},
-        { nome: 'Antonio', numero: 33333333},
-        { nome: 'William', numero: 282923823},
+        {nome:'Cinzia' , numero: 12345678},
+        {nome:'Carmine' , numero: 33399900},
+        {nome:'Adriano' , numero: 89181928},
+        {nome:'Antonio' , numero: 33333333},
+        {nome:'William' , numero: 282923823},
     ],
 
 showContacts : function (){
 
-    cardsWrapper.innerHtml =``;   
+    cardsWrapper.innerHTML =``; 
+    
+    console.log('test');
 
     this.contatti.forEach( (contatto) =>{
 
@@ -35,9 +39,9 @@ showContacts : function (){
         div.innerHTML = ` 
             
                         <div class="card-custom">
-                        <p class="m-0">${contatto.nome}</p>
-                        <p class="m-0">${contatto.numero}</p>
-                        <i class="fa-solid fa-trash"></i>
+                            <p class="m-0">${contatto.nome}</p>
+                            <p class="m-0">${contatto.numero}</p>
+                            <i class="fa-solid fa-trash icon"></i>
                         </div>
 
         `
@@ -45,6 +49,24 @@ showContacts : function (){
         cardsWrapper.appendChild(div);
 
     })
+
+    // CATTURO LE ICONE CHE VENGONO CREATE IN QUESTA FUNZIONE
+    let icons = document.querySelectorAll('.icon');
+
+    icons.forEach ((icona , i)=>{
+
+        icona.addEventListener('click', () =>{
+
+            let name = this.contatti[i].nome;
+
+            this.removeContact(name); 
+
+            // this.showContacts();
+
+        })
+
+    })
+
 
   
     },
@@ -59,12 +81,37 @@ showContacts : function (){
 
         numberInput.value = '';
 
+    },
+
+
+    // FUNZIONE RIMUOVI CONTATTO 
+    removeContact : function (removedName){
+
+        let names = this.contatti.map((contatto)=> contatto.nome.toLowerCase());
+
+        let index = names.indexOf(removedName.toLowerCase());
+
+        if (index > -1){
+
+            this.contatti.splice(index , 1);
+
+            this.showContacts();
+
+        }else{
+
+            alert('contatto non presente in rubrica');
+
+            mostraRubrica.innerHTML = "Mostra Rubrica";
+
+        }
+
     }
     
 
 
 }
 
+// EVENTO MOSTRA RUBRICA
 mostraRubrica.addEventListener('click',()=>{
 
     if (check == false){
@@ -88,7 +135,7 @@ mostraRubrica.addEventListener('click',()=>{
 })
 
 
-
+// EVENTO AGGIUNGI CONTATTO
 aggiungiContatto.addEventListener('click', ()=>{
 
     if(nameInput.value != '' && numberInput.value != ''){
@@ -114,3 +161,30 @@ aggiungiContatto.addEventListener('click', ()=>{
      }
 
  })
+
+//  EVENTO RIMUOVI CONTATTO
+
+rimuoviContatto.addEventListener ('click' , ()=>{
+
+    if(nameInput.value != ''){
+
+    check = true;
+
+    rubrica.removeContact(nameInput.value);
+
+    mostraRubrica.innerHTML = "Nascondi Rubrica";
+
+    nameInput.value = '';
+
+    }else{
+
+        alert('contatto non presente in rubrica');
+
+        mostraRubrica.innerHtml = "Mostra Rubrica";
+
+        check = false;
+
+    }
+
+    
+})
